@@ -1,0 +1,27 @@
+# Virtual Environment
+venv/
+env/
+.venv/
+myenv/
+
+# Streamlit
+__pycache__/
+*.pyc
+.streamlit/secrets.toml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+VS Code
+.vscode/
+
+Project Data
+data/
+*.csv
