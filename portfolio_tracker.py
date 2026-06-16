@@ -7,7 +7,7 @@ from utils.stock_utils import get_current_price, calculate_portfolio_metrics
 from utils.stock_utils import get_historical_data
 
 # Page configuration
-st.set_page_config(page_title='PortTracker', layout='wide', page_icon='💼')
+st.set_page_config(page_title='PortTracker', layout='centered', page_icon='💼')
 st.title('💼 Portfolio Tracker')
 
 # Data file
@@ -89,6 +89,8 @@ if not portfolio.empty:
               subset=['Gain_Loss', 'Gain_Loss_%']
         ),
         hide_index=True)
+    
+    st.write(portfolio[['Ticker', 'Current_Price']])
 
     # Charts
     tab1, tab2 = st.tabs(['Allocation', 'Performance'])

@@ -2,36 +2,33 @@ import yfinance as yf
 import pandas as pd
 import streamlit as st
 
-@st.cache_data(ttl=60, show_spinner=False) # cache for 5 minutes
+@st.cache_data(ttl=60, show_spinner=True) # cache for 5 minutes
+
 def get_current_price(ticker: str):
     '''Fetch current stock price with herror handling'''
     if not ticker or pd.isna(ticker):
-        return 0.0
+        print('Ticker not found')
     ticker = str(ticker).strip().upper()
-
     try:
         stock = yf.Ticker(ticker)
         data = stock.history(period='2d',
                             timeout=10
                             )
-    
         if data.empty:
             data = yf.download(ticker, period='2d', progress=False, timeout=10)
-        
         if data.empty or 'Close' not in data.columns:
-            return 0.00
-
+            return 0.0
         last_close = data['Close'].iloc[-1]
-
         if isinstance(last_close, pd.Series):
-            last_close = last_close.iloc[0] if not last_close.empty else 0.0
-
+            last_close = last_close.iloc[0] if not last_close.empty else 0.0            
         price = float(last_close)
+        if price == 0.0:
+            get_current_price.clear()
         return round(price, 4)       
     except Exception as e:
-        st.error(f'Error fetching {ticker}: {str(e)[:80]}') # for debugging
+        st.error(f'Error fetching {ticker}: {str(e)}') # for debugging
         return 0.0
-    
+        
 def get_historical_data(tickers: list, period='1mo'):
     '''Get historical data for performance chart'''
     try:
