@@ -16,7 +16,7 @@ def get_current_price(ticker: str):
                             )
     
         if data.empty:
-            data = yf.download(ticker,period='2d', progress=False, timeout=10)
+            data = yf.download(ticker, period='2d', progress=False, timeout=10)
         
         if data.empty or 'Close' not in data.columns:
             return 0.00
@@ -27,8 +27,7 @@ def get_current_price(ticker: str):
             last_close = last_close.iloc[0] if not last_close.empty else 0.0
 
         price = float(last_close)
-        return round(price,4)
-         
+        return round(price, 4)       
     except Exception as e:
         st.error(f'Error fetching {ticker}: {str(e)[:80]}') # for debugging
         return 0.0
