@@ -30,10 +30,7 @@ A clean, professional web-based **Stock Porfolio Tracker** built with Python an 
 3. Run the app:
     streamlit run portfolio_tracker.py
 
-Screenshots
-
-
-Future Enhancements
+Future Enhancements:
 
 Dividend Income Tracker
 User Authentication

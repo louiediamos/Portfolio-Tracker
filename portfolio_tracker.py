@@ -8,8 +8,8 @@ from utils.stock_utils import get_historical_data
 import matplotlib as plt
 
 # Page configuration
-st.set_page_config(page_title='PortTracker', layout='wide', page_icon='🪣')
-st.title('🪣 Portfolio Tracker')
+st.set_page_config(page_title='PortTracker', layout='wide', page_icon='💼')
+st.title('💼 Portfolio Tracker')
 
 # Data file
 DATA_FILE = 'data/portfolio.csv'
