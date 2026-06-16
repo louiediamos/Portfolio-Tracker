@@ -14,14 +14,12 @@ st.title('💼 Portfolio Tracker')
 DATA_FILE = 'data/portfolio.csv'
 
 # Load portfolio data
-@st.cache_data(ttl=300)
-def load_portfolio():
-    if os.path.exists(DATA_FILE):
-        return pd.read_csv(DATA_FILE)
-    else:
-        return pd.DataFrame(columns=['Ticker', 'Shares', 'Avg Buy Price', 'Date_Added'])
+if 'portfolio' not in st.session_state:
+      st.session_state.portfolio = pd.DataFrame(
+            columns=['Ticker', 'Shares', 'Avg_Buy_Price', 'Date_Added']
+      )
 
-portfolio = load_portfolio()
+portfolio = st.session_state.portfolio
 
 # Sidebar
 
