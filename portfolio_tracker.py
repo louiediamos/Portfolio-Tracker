@@ -5,6 +5,7 @@ import os
 from datetime import datetime
 from utils.stock_utils import get_current_price, calculate_portfolio_metrics
 from utils.stock_utils import get_historical_data
+import matplotlib as plt
 
 # Page configuration
 st.set_page_config(page_title='PortTracker', layout='wide', page_icon='💼')
