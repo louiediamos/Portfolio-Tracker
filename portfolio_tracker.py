@@ -49,9 +49,8 @@ with st.sidebar.form('add_stock_form'):
             os.makedirs('data', exist_ok=True)
             st.success(f'✅ Added {shares} shares of {ticker}')
             st.rerun()
-
-if not portfolio.empty and ticker in portfolio['Ticker'].values:
-      st.warning(f'{ticker} already exists in your portfolio. \
+    if not portfolio.empty and ticker in portfolio['Ticker'].values:
+        st.warning(f'{ticker} already exists in your portfolio. \
                  Use ✏️ Edit button to update.')
 
 # ====== Main Content =======
