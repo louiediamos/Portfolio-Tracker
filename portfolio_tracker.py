@@ -90,8 +90,6 @@ if not portfolio.empty:
         ),
         hide_index=True)
     
-    st.write(portfolio[['Ticker', 'Current_Price']])
-
     # Charts
     tab1, tab2 = st.tabs(['Allocation', 'Performance'])
 
