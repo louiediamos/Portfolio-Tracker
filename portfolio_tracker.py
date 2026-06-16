@@ -88,6 +88,8 @@ if not portfolio.empty:
         }).map(
               lambda v: 'color: green' if v > 0 else 'color: red',
               subset=['Gain_Loss', 'Gain_Loss_%']
+        ),
+        hide_index=True)
 
     # Charts
     tab1, tab2 = st.tabs(['Allocation', 'Performance'])
