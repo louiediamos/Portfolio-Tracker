@@ -45,13 +45,10 @@ with st.sidebar.form('add_stock_form'):
                 'Avg_Buy_Price': [avg_buy_price],
                 'Date_Added': [datetime.now().strftime('%Y-%m-%d')]
             })
-            portfolio = pd.concat([portfolio, new_row], ignore_index=True)
+            st.session_state.portfolio = pd.concat([st.session_state.portfolio, new_row], ignore_index=True)
             os.makedirs('data', exist_ok=True)
-            portfolio.to_csv(DATA_FILE, index=False)
             st.success(f'✅ Added {shares} shares of {ticker}')
             st.rerun()
-
-ticker = ticker.strip().upper()
 
 if not portfolio.empty and ticker in portfolio['Ticker'].values:
       st.warning(f'{ticker} already exists in your portfolio. \
