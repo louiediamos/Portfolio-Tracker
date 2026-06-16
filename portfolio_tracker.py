@@ -85,7 +85,9 @@ if not portfolio.empty:
             'Current_Value': '${:.2f}',
             'Gain_Loss': '${:.2f}',
             'Gain_Loss_%': '{:.2f}%'
-        }).background_gradient(subset=['Gain_Loss_%'], cmap='RdYlGn'), width="stretch", hide_index=True)
+        }).map(
+              lambda v: 'color: green' if v > 0 else 'color: red',
+              subset=['Gain_Loss', 'Gain_Loss_%']
 
     # Charts
     tab1, tab2 = st.tabs(['Allocation', 'Performance'])
