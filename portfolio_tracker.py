@@ -140,6 +140,11 @@ if not portfolio.empty:
                 st.rerun()
 
 # Export
-if not portfolio.empty and st.button('🗂️ Export to CSV'):
-                                     portfolio.to_csv('portfolio_export.csv', index=False)
-                                     st.success('Exported Successfully!')
+if not portfolio.empty: 
+    csv_data = st.session_state.portfolio.to_csv(index=False).encode('utf-8')
+    st.download_button(
+        label = '🗂️ Export file(.csv)',
+        data = csv_data,
+        file_name=f"portfolio_export_{datetime.now().strftime('%Y%m%d')}.csv",
+        mime='text/csv'
+    )
