@@ -75,7 +75,7 @@ if not portfolio.empty:
     st.subheader('Portfolio Holdings')
     display_df = portfolio[['Ticker', 'Shares', 'Avg_Buy_Price', 'Current_Price',
                             'Current_Value', 'Gain_Loss', 'Gain_Loss_%']].round(2)
-    
+
     st.dataframe(
         display_df.style.format({
             'Shares': '{:.2f}',
@@ -84,12 +84,17 @@ if not portfolio.empty:
             'Current_Value': '${:.2f}',
             'Gain_Loss': '${:.2f}',
             'Gain_Loss_%': '{:.2f}%'
-        }).map(
+        },
+        na_rep='-',
+        subset=['Shares', 'Avg_Buy_Price', 'Current_Price', 'Current_Value',
+                'Gain_Loss', 'Gain_Loss_%']
+        ).map(
               lambda v: 'color: green' if v > 0 else 'color: red',
               subset=['Gain_Loss', 'Gain_Loss_%']
         ),
-        hide_index=True)
-    
+        hide_index=True,
+        use_container_width=True)
+
     # Charts
     tab1, tab2 = st.tabs(['Allocation', 'Performance'])
 
