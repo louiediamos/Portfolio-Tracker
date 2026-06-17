@@ -22,37 +22,38 @@ if 'portfolio' not in st.session_state:
 portfolio = st.session_state.portfolio
 
 # Sidebar
-
 st.sidebar.header('Add New Stock')
 
 with st.sidebar.form('add_stock_form'):
     col1, col2 = st.columns(2)
     with col1:
-        ticker = st.text_input('Ticker Symbol',
+        ticker = st.text_input('Ticker',
                                 placeholder='(input ticker)').upper().strip()
-
     with col2:
         shares = st.number_input('Shares', min_value=0.10, value=10.00, step=0.10)
     
     avg_buy_price = st.number_input('Avg Buy Price ($)', min_value=0.10, 
                                     value=150.00,step=0.10)
-    
+        
     if st.form_submit_button("➕ Add to Portfolio"):
-        if ticker:
+        if not ticker:
+            st.error('Please enter a Ticker Symbol')
+            # Check for duplicate        
+        elif not portfolio.empty and ticker in portfolio['Ticker'].values:
+            st.warning(f'{ticker} already exixts in your portfolio. Please use ✏️ Edit button.')
+        else:
+            # Create a new row and add it
             new_row = pd.DataFrame({
                 'Ticker': [ticker],
                 'Shares': [shares],
                 'Avg_Buy_Price': [avg_buy_price],
                 'Date_Added': [datetime.now().strftime('%Y-%m-%d')]
             })
-            st.session_state.portfolio = pd.concat([st.session_state.portfolio, new_row], ignore_index=True)
-            os.makedirs('data', exist_ok=True)
-            st.success(f'✅ Added {shares} shares of {ticker}')
+            st.session_state.portfolio = pd.concat([st.session_state.portfolio,
+                                                    new_row], ignore_index=True)
+            st.success(f'Success! ✅ {ticker} has been added.')
             st.rerun()
-    if not portfolio.empty and ticker in portfolio['Ticker'].values:
-        st.warning(f'{ticker} already exists in your portfolio. \
-                 Use ✏️ Edit button to update.')
-
+        
 # ====== Main Content =======
 
 if not portfolio.empty:
@@ -92,8 +93,7 @@ if not portfolio.empty:
               lambda v: 'color: green' if v > 0 else 'color: red',
               subset=['Gain_Loss', 'Gain_Loss_%']
         ),
-        hide_index=True,
-        use_container_width=True)
+        hide_index=True)
 
     # Charts
     tab1, tab2 = st.tabs(['Allocation', 'Performance'])
@@ -114,7 +114,6 @@ else:
     st.info('👋 Your Portfolio is empty. Add some holdings using the sidebar!')
 
 # ====== Manage Holdings =======
-
 if not portfolio.empty:
     st.subheader('Manage Holdings')
     ticker_list = portfolio['Ticker'].unique()
