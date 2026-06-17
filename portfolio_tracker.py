@@ -116,14 +116,13 @@ else:
 # ====== Manage Holdings =======
 if not portfolio.empty:
     st.subheader('Manage Holdings')
-    ticker_list = portfolio['Ticker'].unique()
+    ticker_list = st.session_state.portfolio['Ticker'].unique()
     selected_ticker = st.selectbox('Select Ticker', ticker_list)
 
     col1, col2 = st.columns(2)
     with col1:
         if st.button('🗑️ Delete', type='primary'):
-            portfolio = portfolio[portfolio['Ticker'] != selected_ticker].reset_index(drop=True)
-            portfolio.to_csv(DATA_FILE, index=False)
+            st.session_state.portfolio = portfolio[portfolio['Ticker']!=selected_ticker].reset_index(drop=True)
             st.success(f'Deleted {selected_ticker}')
             st.rerun()
 
