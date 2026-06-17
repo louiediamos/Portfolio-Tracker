@@ -7,7 +7,7 @@ import streamlit as st
 def get_current_price(ticker: str):
     '''Fetch current stock price with herror handling'''
     if not ticker or pd.isna(ticker):
-        print('Ticker not found')
+        return 0.0
     ticker = str(ticker).strip().upper()
     try:
         stock = yf.Ticker(ticker)
@@ -23,8 +23,7 @@ def get_current_price(ticker: str):
             last_close = last_close.iloc[0] if not last_close.empty else 0.0            
         price = float(last_close)
         if price == 0.0:
-            get_current_price.clear()
-        return round(price, 4)       
+            return round(price, 4)       
     except Exception as e:
         st.error(f'Error fetching {ticker}: {str(e)}') # for debugging
         return 0.0
