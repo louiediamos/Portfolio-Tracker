@@ -5,6 +5,7 @@ import os
 from datetime import datetime
 from utils.stock_utils import get_current_price, calculate_portfolio_metrics
 from utils.stock_utils import get_historical_data
+import time
 
 # Page configuration
 st.set_page_config(page_title='PortTracker', layout='centered', page_icon='💼')
@@ -52,6 +53,7 @@ with st.sidebar.form('add_stock_form'):
             st.session_state.portfolio = pd.concat([st.session_state.portfolio,
                                                     new_row], ignore_index=True)
             st.success(f'Success! ✅ {ticker} has been added.')
+            time.sleep(2)
             st.rerun()
         
 # ====== Main Content =======
@@ -123,7 +125,8 @@ if not portfolio.empty:
     with col1:
         if st.button('🗑️ Delete', type='primary'):
             st.session_state.portfolio = portfolio[portfolio['Ticker']!=selected_ticker].reset_index(drop=True)
-            st.success(f'Deleted {selected_ticker}')
+            st.success(f'{selected_ticker} has been deleted.')
+            time.sleep(2)
             st.rerun()
 
     with col2:
@@ -136,7 +139,9 @@ if not portfolio.empty:
                 portfolio.loc[portfolio['Ticker'] == selected_ticker, 'Shares'] = new_shares
                 portfolio.loc[portfolio['Ticker'] == selected_ticker, 'Avg_Buy_Price'] = new_price
                 portfolio.to_csv(DATA_FILE, index=False)
+                time.sleep(2)
                 st.success('Updated successfull!')
+                time.sleep(2)
                 st.rerun()
 
 # Export
