@@ -151,6 +151,6 @@ if not st.session_state.portfolio.empty:
     st.download_button(
         label = '🗂️ Export file(.csv)',
         data = csv_data,
-        file_name=f"portfolio_export_{datetime.now().strftime('%Y%m%d')}.csv",
+        file_name=f"Portfolio_Export_LD_{datetime.now().strftime('%Y%m%d')}.csv",
         mime='text/csv'
     )
