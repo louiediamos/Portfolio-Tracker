@@ -6,9 +6,15 @@ from datetime import datetime
 SCOPES = ["https://spreadsheets.google.com/feeds",
                     "https://www.googleapis.com/auth/drive"]
 
-def get_google_sheet(sheet_name='Portfolio Tracker', key_path='credentials.json'):
+def get_google_sheet(sheet_name='Portfolio Tracker', key_path=None, creds_dict=None):
     '''Connect to Google Sheet'''
-    creds = Credentials.from_service_account_file(key_path, scopes=SCOPES)
+    if creds_dict:
+        credentials = Credentials.from_service_account_info(creds_dict, scopes=SCOPES)
+    elif key_path:
+        credentials = Credentials.from_service_account_file(key_path, scopes=SCOPES)
+    else:
+        raise ValueError('Either key_path or creds_dict must be provided')
+    
     client = gspread.authorize(creds)
 
     try: 

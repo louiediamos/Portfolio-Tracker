@@ -34,8 +34,8 @@ if 'sheet' not in st.session_state:
             st.session_state.sheet = get_google_sheet(SHEET_NAME, KEY_PATH)
             st.sidebar.info('🔑 Using local credentials.json')
         except FileNotFoundError:
-            st.error('❌ credentials.json not found and no Streamlit secrets configured.')
-        st.stop()
+            st.error('❌ credentials.json not gifound and no Streamlit secrets configured.')
+            st.stop()
 
 # Load portfolio data
 if 'portfolio' not in st.session_state:
