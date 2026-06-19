@@ -19,7 +19,15 @@ KEY_PATH = 'credentials.json'
 
 # Initialize connection
 if 'sheet' not in st.session_state:
-    st.session_state.sheet = get_google_sheet(SHEET_NAME, KEY_PATH)
+    try:
+        # For Streamlit Cloud (secrets.toml)
+        creds_dict = dict(st.secrets['st_creds'])
+        st.session_state.sheet = get_google_sheet(SHEET_NAME, creds_dict=creds_dict)
+    except Exception as e:
+        # Fallback for local testign if (if using credentials.json)
+        KEY_PATH = 'credentials.json'
+        st.session_state.sheet = get_google_sheet(SHEET_NAME, KEY_PATH)
+        print(f'Error encountered: {e}')
 
 # Load portfolio data
 if 'portfolio' not in st.session_state:
