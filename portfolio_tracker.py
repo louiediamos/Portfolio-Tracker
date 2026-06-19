@@ -1,26 +1,31 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import os
+import time
 from datetime import datetime
+
+# Import utils
+from utils.sheets_utils import get_google_sheet, load_from_sheet, save_to_sheet
 from utils.stock_utils import get_current_price, calculate_portfolio_metrics
 from utils.stock_utils import get_historical_data
-import time
 
 # Page configuration
 st.set_page_config(page_title='PortTracker', layout='centered', page_icon='💼')
 st.title('💼 Portfolio Tracker')
 
-# Data file
-DATA_FILE = 'data/portfolio.csv'
+# Google Sheet Configuation
+SHEET_NAME = 'PortTracker'
+KEY_PATH = 'credentials.json'
+
+# Initialize connection
+if 'sheet' not in st.session_state:
+    st.session_state.sheet = get_google_sheet(SHEET_NAME, KEY_PATH)
 
 # Load portfolio data
 if 'portfolio' not in st.session_state:
-      st.session_state.portfolio = pd.DataFrame(
-            columns=['Ticker', 'Shares', 'Avg_Buy_Price', 'Date_Added']
-      )
+      st.session_state.portfolio = load_from_sheet(st.session_state.sheet)
 
-# Sidebar
+# Sidebar Add New Stock
 st.sidebar.header('Add New Stock')
 
 with st.sidebar.form('add_stock_form'):
@@ -49,15 +54,17 @@ with st.sidebar.form('add_stock_form'):
                 'Date_Added': [datetime.now().strftime('%Y-%m-%d')]
             })
             st.session_state.portfolio = pd.concat([st.session_state.portfolio,
-                                                    new_row], ignore_index=True)
+                                                    new_row], ignore_index=True) #for review
+            
+            # Save to Google sheet after adding
+            save_to_sheet(st.session_state.sheet, st.session_state.portfolio)
+
             st.success(f'Success! ✅ {ticker} has been added.')
-            time.sleep(1)
+            time.sleep(0.5)
             st.rerun()
         
 # ====== Main Content =======
-
 if not st.session_state.portfolio.empty:
-    # Calculate all metrics
     st.session_state.portfolio = calculate_portfolio_metrics(st.session_state.portfolio)
 
     # Summary Metrics
@@ -66,6 +73,7 @@ if not st.session_state.portfolio.empty:
     total_gain = total_value - total_cost
     total_gain_pct = (total_gain / total_cost * 100) if total_cost > 0 else 0
 
+    # Header for Summary Metrics
     col1, col2, col3, col4 = st.columns(4)
     col1.metric('Total Value', f'${total_value:.2f}')
     col2.metric('Total Gain/Loss', f'${total_gain:.2f}', f'{total_gain_pct:.2f}%')
@@ -80,10 +88,8 @@ if not st.session_state.portfolio.empty:
     st.dataframe(
         display_df.style.format({
             'Shares': '{:.2f}',
-            'Avg_Buy_Price': '${:.2f}',
-            'Current_Price': '${:.2f}',
-            'Current_Value': '${:.2f}',
-            'Gain_Loss': '${:.2f}',
+            'Avg_Buy_Price': '${:.2f}', 'Current_Price': '${:.2f}',
+            'Current_Value': '${:.2f}', 'Gain_Loss': '${:.2f}',
             'Gain_Loss_%': '{:.2f}%'
         },
         na_rep='-',
@@ -104,7 +110,6 @@ if not st.session_state.portfolio.empty:
         st.plotly_chart(fig_pie, width="stretch")
     
     with tab2:
-        st.subheader('30-Day Portfolio Performance')
         tickers = st.session_state.portfolio['Ticker'].tolist()
         hist_data = get_historical_data(tickers, period ='1mo')
         if not hist_data.empty:
@@ -121,12 +126,17 @@ if not st.session_state.portfolio.empty:
 
     col1, col2 = st.columns(2)
     with col1:
-        if st.button('🗑️ Delete', type='primary'):
+        if st.button('🗑️ Delete', type='primary'): # primary for review
             st.session_state.portfolio = st.session_state.portfolio[
-                st.session_state.portfolio['Ticker']!=selected_ticker].reset_index(drop=True)
+                st.session_state.portfolio['Ticker']!=selected_ticker].reset_index(drop=True) # for review
+            
+            # Save to Google Sheet after deletion 
+            save_to_sheet(st.session_state.sheet, st.session_state.portfolio)
+
             st.success(f'{selected_ticker} has been deleted.')
-            time.sleep(1)
+            time.sleep(0.5)
             st.rerun()
+
 
     with col2:
         if st.button('✏️ Edit'):
@@ -140,9 +150,13 @@ if not st.session_state.portfolio.empty:
             if st.button('Save Changes'):
                 st.session_state.portfolio.loc[st.session_state.portfolio['Ticker'] == selected_ticker, 'Shares'] = new_shares
                 st.session_state.portfolio.loc[st.session_state.portfolio['Ticker'] == selected_ticker, 'Avg_Buy_Price'] = new_price
+                
+                # Save to Google sheet after Edit
+                save_to_sheet(st.session_state.sheet, st.session_state.portfolio)
+
                 del st.session_state['editing']
                 st.success('Updated successfully!')
-                time.sleep(1)
+                time.sleep(0.5)
                 st.rerun()
 
 # Export

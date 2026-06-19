@@ -19,9 +19,12 @@ Thumbs.db
 # Jupyter
 .ipynb_checkpoints/
 
-VS Code
+# VS Code
 .vscode/
 
-Project Data
+# Project Data
 data/
 *.csv
+
+# Credentials 
+credentials.json
