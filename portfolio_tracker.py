@@ -23,7 +23,6 @@ if 'sheet' not in st.session_state:
         if "st_creds" in st.secrets:           
             creds_dict = dict(st.secrets["st_creds"])
             st.session_state.sheet = get_google_sheet(SHEET_NAME, creds_dict=creds_dict)
-            st.sidebar.success('✅ Connected via Streamlit Secrets')
         else:
             raise Exception('No secrets found.')
         
