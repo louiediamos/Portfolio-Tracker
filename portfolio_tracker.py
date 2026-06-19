@@ -14,27 +14,27 @@ st.set_page_config(page_title='PortTracker', layout='centered', page_icon='💼'
 st.title('💼 Portfolio Tracker')
 
 # Google Sheet Configuation
-SHEET_NAME = 'PortTracker'
+SHEET_NAME = 'Portfolio Tracker'
 
 # Initialize connection
 if 'sheet' not in st.session_state:
     try:
         # For Streamlit Cloud (secrets.toml)
-        if 'st_creds' in st.secrets:           
-            creds_dict = dict(st.secrets['st_creds'])
+        if "st_creds" in st.secrets:           
+            creds_dict = dict(st.secrets["st_creds"])
             st.session_state.sheet = get_google_sheet(SHEET_NAME, creds_dict=creds_dict)
             st.sidebar.success('✅ Connected via Streamlit Secrets')
         else:
             raise Exception('No secrets found.')
         
-    except Exception as e:
+    except Exception:
         # Fallback for local testign if (if using credentials.json)
         try:
             KEY_PATH = 'credentials.json'
             st.session_state.sheet = get_google_sheet(SHEET_NAME, KEY_PATH)
             st.sidebar.info('🔑 Using local credentials.json')
         except FileNotFoundError:
-            st.error('❌ credentials.json not gifound and no Streamlit secrets configured.')
+            st.error('❌ credentials.json not found and no Streamlit secrets configured.')
             st.stop()
 
 # Load portfolio data

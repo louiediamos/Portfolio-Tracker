@@ -1,10 +1,11 @@
 import gspread
 from google.oauth2.service_account import Credentials
 import pandas as pd
-from datetime import datetime
 
-SCOPES = ["https://spreadsheets.google.com/feeds",
-                    "https://www.googleapis.com/auth/drive"]
+SCOPES = [
+        "https://spreadsheets.google.com/feeds",
+        "https://www.googleapis.com/auth/drive"
+        ]
 
 def get_google_sheet(sheet_name='Portfolio Tracker', key_path=None, creds_dict=None):
     '''Connect to Google Sheet'''
@@ -15,13 +16,12 @@ def get_google_sheet(sheet_name='Portfolio Tracker', key_path=None, creds_dict=N
     else:
         raise ValueError('Either key_path or creds_dict must be provided')
     
-    client = gspread.authorize(creds)
+    client = gspread.authorize(credentials)
 
     try: 
         sheet = client.open(sheet_name).worksheet('PortTracker')
     except: 
         sheet.append_row(['Ticker', 'Shares', 'Avg_Buy_Price', 'Date_Added'])
-    
     return sheet
 
 def load_from_sheet(sheet):
