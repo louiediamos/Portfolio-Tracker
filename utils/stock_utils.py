@@ -22,8 +22,7 @@ def get_current_price(ticker: str):
         if isinstance(last_close, pd.Series):
             last_close = last_close.iloc[0] if not last_close.empty else 0.0            
         price = float(last_close)
-        if price == 0.0:
-            return round(price, 4)       
+        return round(price, 4)       
     except Exception as e:
         st.error(f'Error fetching {ticker}: {str(e)}') # for debugging
         return 0.0
