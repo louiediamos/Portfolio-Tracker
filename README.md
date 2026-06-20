@@ -1,39 +1,81 @@
-# Portfolio Tracker
+# 💼 Portfolio Tracker
+A clean, interactive web-based **Stock Portfolio Management Tool** with real-time pricing and performance chart visualizations, built for the **Google Data Analytics Professional Certificate**.
 
-A clean, professional web-based **Stock Porfolio Tracker** built with Python an Streamlit.
+## 🎯 Objectives
 
-## Features
+## General Objective:
+To provide an efficient and user-friendly web-based tool to manage portfolio holdings and show timely performance and relevant metrics.
 
-- Real-time stock prices (via yfinance)
-- Portfolio performance tracking (Gain/Loss %)
-- Interactive charts (Allocation + Performance)
-- Add, Edit, Delete holdings
-- Data persistence
-- Clean, responsive UI
+### Specific Objectives:
+- To be able to Add, Edit, Delete Stock Holdings
+- To show Performance of the Portfolio using Visual Insights
+- To provide spreadsheet data storage persistence
 
-## Tech Stack
+🔗 **Live Demo:** [Launch App](https://louie-diamos-portfolio-tracker.streamlit.app/)
+🎓 **Certificate:** [View Certificate](https://www.coursera.org/account/accomplishments/specialization/VGC1N9Q9HPBD)
 
-- **Streamlit** - Web framework
-- **yfinance** - Stock data
-- **Pandas** - Data processing
-- **Plotly** - Interactive Charts
+---
+## 📸 Screenshots
+![Portfolio Dashboard](Images/1PortfolioHeader.png)
+![Allocation/Performance Charts](Images/2Charts.png)
+![Manage Holdings](Images/3Manage.png)
 
-## How to Run Locally
+## ✨ Features
+- Add, edit, delete stock holdings
+- Real-time price tracking via yfinance
+- Portfolio Summary with Total Value, Gain/Loss
+- Interactive Charts: Portfolio allocation(pie) and 30-Day performance(line)
+- Persistent storage via Google Sheets API
+- CSV export option
 
-1. Clone the repo:
-    git clone https://github.com/louiediamos/portfolio-tracker.git
-    cd portfolio-tracker
+## 🛠️ Tech Stack
+**Frontend**: Streamlit
+**Data Processing**: Pandas 
+**Visualizations**: Plotly
+**Stock Data**: yfinance 
+**Database**: Google Sheets API (gspread)
+**Deployment**: Streamlt Community Clouid
+**Version Control**: Git and GitHub
 
-2. Install dependencis:
-    pip install -r requirements.txt
+## 🏗️ Architecture
+The web-based tool is hosted on Streamlit for its frontend. Steamlit provides clean user-interface for the Portfolio management system: Header, Sidebar to Add, Select Box to Delete and Edit holdings, Tabs for Visual Charts, Title, and URL. 
 
-3. Run the app:
-    streamlit run portfolio_tracker.py
+The user session is provided by Streamit’s session_state function where users can input their portfolio as they access the web-page. Then, the data are saved to Google Sheet with API integration(json keys, and gspread module) so they are accessible every time the Portfolio Tracker web-page is opened.
 
-Future Enhancements:
+## 🐛 Challenges & Lessons Learned
+- When first deployed to the cloud, data persistence was non-existent since local testing utilized to_csv to create a local folder for the data input. This made all buttons - Add, Delete, Edit - unresponsive and not working at all since data was not stored.
+- So I changed it to session_state so the data is interactive online for improvement of the response time, missing pricing, unresponsive buttons, and further debugging for the first major deployment. 
+- This proved to a great learning experience about data persistence using session_state and to ensure data is saved, I integrated is to gspread using API and JSON credentials which is now enabled.
+- Uploading the repository to GitHub required careful steps to make sure the JSON credentials are not exposed by saving to .gitignore. 
+- The Streamilt secret setup for JSON took some time since Streamlit has strict requirement for TOML format for the credentials to be accessible. 
+- The second major deployment was the persistent data storage. I created a branch in GitHub gsheet-integration. This required several testing and debugging, and refactoring of the portfolio_tracker.py. Now, the data is saved to Google Sheet, and reloaded back when accessing the tool.
 
-Dividend Income Tracker
-User Authentication
+## 🚀 Running Locally
+git clone https://github.com/louiediamos/Portfolio-Tracker.git
+cd Portfolio-Tracker
+pip install -r requirements.txt
+streamlit run portfolio_tracker.py
 
-License
-MIT License
+Requires a `credentials.json` Google service account key for 
+Sheets integration (see Setup below).
+
+## ⚙️ Setup (Google Sheets API)
+1. Create Google Cloud account
+2. Enable Google Sheet and Drive APIs
+3. Generate and download JSON key for local access
+4. Upload JSON key to Streamlit > Secrets for cloud access
+5. Refactor creds_dict and KEY_PATH in portfolio_tracker.py with your personal JSON key.
+6. Save and Deploy
+
+## 🔮 Future Enhancements
+- PDF Parser for Trading Confirmation Report
+- User authentication
+- Multi-currency support
+- Cash Balance Tracking
+
+## 📄 License
+MIT LICENSE
+
+## 👤 Author
+Louie Diamos
+[GitHub](https://github.com/louiediamos) · [LinkedIn](https://www.linkedin.com/in/ldiamos)
