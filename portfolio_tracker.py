@@ -52,7 +52,7 @@ with st.sidebar.form('add_stock_form'):
         shares = st.number_input('Shares', min_value=0.10, value=10.00, step=0.10)
     
     avg_buy_price = st.number_input('Avg Buy Price ($)', min_value=0.10, 
-                                    value=150.00,step=0.10)
+                                    value=150.00,step=0.01)
         
     if st.form_submit_button("➕ Add to Portfolio"):
         if not ticker:
@@ -64,8 +64,8 @@ with st.sidebar.form('add_stock_form'):
             # Create a new row and add it
             new_row = pd.DataFrame({
                 'Ticker': [ticker],
-                'Shares': [shares],
-                'Avg_Buy_Price': [avg_buy_price],
+                'Shares': [float(shares)],
+                'Avg_Buy_Price': [float(avg_buy_price)],
                 'Date_Added': [datetime.now().strftime('%Y-%m-%d')]
             })
             st.session_state.portfolio = pd.concat([st.session_state.portfolio,
