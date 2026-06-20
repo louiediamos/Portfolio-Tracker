@@ -80,4 +80,6 @@ MIT LICENSE
 
 ## 👤 Author
 Louie Diamos
+Google Data Analytics Professional Certificate
+Aspiring Data Analyst | Finance Enthusiast
 [GitHub](https://github.com/louiediamos) · [LinkedIn](https://www.linkedin.com/in/ldiamos)
