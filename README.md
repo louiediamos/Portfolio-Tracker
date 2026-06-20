@@ -11,7 +11,8 @@ To provide an efficient and user-friendly web-based tool to manage portfolio hol
 - To show the performance of the Portfolio using Visual Insights
 - To provide spreadsheet data storage persistence
 
-🔗 **Live Demo:** [Launch App](https://louie-diamos-portfolio-tracker.streamlit.app/) <br>
+🔗 **Live Demo:** [Launch App](https://louie-diamos-portfolio-tracker.streamlit.app/) 
+
 🎓 **Certificate:** [View Certificate](https://www.coursera.org/account/accomplishments/specialization/VGC1N9Q9HPBD)
 
 ---
@@ -30,12 +31,12 @@ To provide an efficient and user-friendly web-based tool to manage portfolio hol
 
 ## 🛠️ Tech Stack
 **Frontend**: Streamlit<br>
-**Data Processing**: Pandas <br>
+**Data Processing**: Pandas<br>
 **Visualizations**: Plotly<br>
-**Stock Data**: yfinance <br>
+**Stock Data**: yfinance<br>
 **Database**: Google Sheets API (gspread)<br>
-**Deployment**: Streamlt Community Clouid<br>
-**Version Control**: Git and GitHub<br>
+**Deployment**: Streamlit Community Cloud<br>
+**Version Control**: Git and GitHub
 
 ## 🏗️ Architecture
 The web-based tool is hosted on Streamlit for its frontend. Steamlit provides a clean user interface for the Portfolio management system: Header, Sidebar to Add, Select Box to Delete and Edit holdings, Tabs for Visual Charts, Title, and URL. 
