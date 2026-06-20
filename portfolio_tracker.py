@@ -69,7 +69,7 @@ with st.sidebar.form('add_stock_form'):
                 'Date_Added': [datetime.now().strftime('%Y-%m-%d')]
             })
             st.session_state.portfolio = pd.concat([st.session_state.portfolio,
-                                                    new_row], ignore_index=True) #for review
+                                                    new_row], ignore_index=True) 
             
             # Save to Google sheet after adding
             save_to_sheet(st.session_state.sheet, st.session_state.portfolio)
@@ -141,9 +141,9 @@ if not st.session_state.portfolio.empty:
 
     col1, col2 = st.columns(2)
     with col1:
-        if st.button('🗑️ Delete', type='primary'): # primary for review
+        if st.button('🗑️ Delete', type='primary'): 
             st.session_state.portfolio = st.session_state.portfolio[
-                st.session_state.portfolio['Ticker']!=selected_ticker].reset_index(drop=True) # for review
+                st.session_state.portfolio['Ticker']!=selected_ticker].reset_index(drop=True) 
             
             # Save to Google Sheet after deletion 
             save_to_sheet(st.session_state.sheet, st.session_state.portfolio)
@@ -154,7 +154,7 @@ if not st.session_state.portfolio.empty:
 
 
     with col2:
-        if st.button('✏️ Edit'):
+        if st.button('✏️ Edit', type = 'secondary'):
             st.session_state['editing'] = selected_ticker
 
     if st.session_state.get('editing') == selected_ticker:
