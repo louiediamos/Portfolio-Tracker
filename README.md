@@ -51,10 +51,12 @@ The user session is provided by Streamit’s session_state function where users 
 - The second major deployment was the persistent data storage. I created a branch in GitHub gsheet-integration. This required several testing and debugging, and refactoring of the portfolio_tracker.py. Now, the data is saved to Google Sheet, and reloaded back when accessing the tool.
 
 ## 🚀 Running Locally
+```bash
 git clone https://github.com/louiediamos/Portfolio-Tracker.git
 cd Portfolio-Tracker
 pip install -r requirements.txt
 streamlit run portfolio_tracker.py
+```
 
 Requires a `credentials.json` Google service account key for 
 Sheets integration (see Setup below).
