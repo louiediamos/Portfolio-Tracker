@@ -79,7 +79,6 @@ Sheets integration (see Setup below).
 MIT LICENSE
 
 ## 👤 Author
-## 👤 Author
 Louie Diamos<br>
 Google Data Analytics Professional Certificate<br>
 Aspiring Data Analyst | Finance Enthusiast<br>
