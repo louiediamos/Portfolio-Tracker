@@ -75,9 +75,6 @@ Sheets integration (see Setup below).
 - Multi-currency support
 - Cash Balance Tracking
 
-## 📄 License
-MIT LICENSE
-
 ## 👤 Author
 Louie Diamos<br>
 Google Data Analytics Professional Certificate<br>
