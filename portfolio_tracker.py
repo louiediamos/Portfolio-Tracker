@@ -10,7 +10,7 @@ from utils.stock_utils import get_current_price, calculate_portfolio_metrics
 from utils.stock_utils import get_historical_data
 
 # Page configuration
-st.set_page_config(page_title='PortTracker', layout='centered', page_icon='💼')
+st.set_page_config(page_title='PortTracker', layout='wide', page_icon='💼')
 st.title('💼 Portfolio Tracker')
 
 # Google Sheet Configuation
@@ -183,3 +183,15 @@ if not st.session_state.portfolio.empty:
         file_name=f"Portfolio_Export_LD_{datetime.now().strftime('%Y%m%d')}.csv",
         mime='text/csv'
     )
+
+st.sidebar.markdown('---')
+st.sidebar.markdown(
+    """
+    <div style='text-align: center; font-size: 0.85em; color: gray;'>
+        © 2026 Louie Diamos<br>
+        <a href='https://github.com/louiediamos' target='_blank'>GitHub</a> · 
+        <a href='www.linkedin.com/in/ldiamos' target='_blank'>LinkedIn</a>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
