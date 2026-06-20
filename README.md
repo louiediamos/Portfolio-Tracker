@@ -7,11 +7,11 @@ A clean, interactive web-based **Stock Portfolio Management Tool** with real-tim
 To provide an efficient and user-friendly web-based tool to manage portfolio holdings and show timely performance and relevant metrics.
 
 ### Specific Objectives:
-- To be able to Add, Edit, Delete stock holdings
+- To be able to Add, Edit, Delete stock holdings 
 - To show the performance of the Portfolio using Visual Insights
 - To provide spreadsheet data storage persistence
 
-🔗 **Live Demo:** [Launch App](https://louie-diamos-portfolio-tracker.streamlit.app/)
+🔗 **Live Demo:** [Launch App](https://louie-diamos-portfolio-tracker.streamlit.app/) <br>
 🎓 **Certificate:** [View Certificate](https://www.coursera.org/account/accomplishments/specialization/VGC1N9Q9HPBD)
 
 ---
@@ -29,13 +29,13 @@ To provide an efficient and user-friendly web-based tool to manage portfolio hol
 - CSV export option
 
 ## 🛠️ Tech Stack
-**Frontend**: Streamlit
-**Data Processing**: Pandas 
-**Visualizations**: Plotly
-**Stock Data**: yfinance 
-**Database**: Google Sheets API (gspread)
-**Deployment**: Streamlt Community Clouid
-**Version Control**: Git and GitHub
+**Frontend**: Streamlit<br>
+**Data Processing**: Pandas <br>
+**Visualizations**: Plotly<br>
+**Stock Data**: yfinance <br>
+**Database**: Google Sheets API (gspread)<br>
+**Deployment**: Streamlt Community Clouid<br>
+**Version Control**: Git and GitHub<br>
 
 ## 🏗️ Architecture
 The web-based tool is hosted on Streamlit for its frontend. Steamlit provides a clean user interface for the Portfolio management system: Header, Sidebar to Add, Select Box to Delete and Edit holdings, Tabs for Visual Charts, Title, and URL. 
